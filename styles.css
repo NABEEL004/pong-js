@@ -4,8 +4,16 @@
 
 body {
     margin: 0;
-    background-color: #AAA;
+    background-color: var(--background-color);
     position: relative;
+    overflow: hidden;
+}
+
+:root {
+    --hue : 200;
+    --saturation: 50%;
+    --foreground-color: hsl(var(--hue), var(--saturation), 80%);
+    --background-color: hsl(var(--hue), var(--saturation), 20%);
 }
 
 .scores {
@@ -17,6 +25,7 @@ body {
     align-items: center;
     font-size: 3rem;
     font-weight: 600;
+    color: var(--foreground-color)
 }
 
 .score {
@@ -24,31 +33,35 @@ body {
 }
 
 .paddle {
+    --position : 50;
     width: 1.5vh;
     height: 10vh;
-    background-color: rgb(255,255,255);
+    background-color: var(--foreground-color);
     position: absolute;
+    top: calc(var(--position) * 1vh)
 }
 
 .player {
     left: 1vw;
-    top: 50vh;
+    /* top: 50vh; */
     transform: translateY(-50%);
 }
 
 .computer {
     right: 1vw;
-    top: 50vh;
+    /* top: 50vh; */
     transform: translateY(-50%);
 }
 
 #ball {
+    --x: 50;
+    --y: 50;
     height: 2.3vh;
     width: 2.3vh;
     border-radius: 50%;
-    background-color: #FFF;
+    background-color: var(--foreground-color);
     position: absolute ;
-    top: 50%;
-    left: 50%;
+    top: calc(var(--y) * 1vh);
+    left: calc(var(--x) * 1vw);
     transform: translate(-50%, -50%);
 }
