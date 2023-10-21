@@ -1,0 +1,54 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #AAA;
+    position: relative;
+}
+
+.scores {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 10vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.score {
+    padding: 0 1.5rem;
+}
+
+.paddle {
+    width: 1.5vh;
+    height: 10vh;
+    background-color: rgb(255,255,255);
+    position: absolute;
+}
+
+.player {
+    left: 1vw;
+    top: 50vh;
+    transform: translateY(-50%);
+}
+
+.computer {
+    right: 1vw;
+    top: 50vh;
+    transform: translateY(-50%);
+}
+
+#ball {
+    height: 2.3vh;
+    width: 2.3vh;
+    border-radius: 50%;
+    background-color: #FFF;
+    position: absolute ;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
