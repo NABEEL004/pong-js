@@ -1,4 +1,4 @@
-const SPEED = 0.01
+const SPEED = 0.014
 
 export default class Paddle {
     constructor(paddleElem) {

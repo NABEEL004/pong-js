@@ -1,5 +1,5 @@
 const INITIAL_VELOCITY = 0.025
-const INCREMENTAL_VELOCITY = 0.0001
+const INCREMENTAL_VELOCITY = 0.00008
 
 export default class Ball {
     constructor(ballElem) {
@@ -40,7 +40,8 @@ export default class Ball {
         this.velocity = INITIAL_VELOCITY
     }
 
-    update (delta, paddleRects) {
+    // update (delta, paddleRects, mushroomRect, mirrorRect) {
+    update (delta, paddleRects, mushroom, mirror) {
         this.x += this.direction.x * this.velocity * delta
         this.y += this.direction.y * this.velocity * delta
 
@@ -49,10 +50,21 @@ export default class Ball {
         if (rect.bottom >= window.innerHeight || rect.top <= 0) {
             this.direction.y *= -1
         }
+
+        
         if (paddleRects.some(r => isCollision(r, rect))) {
             this.direction.x *= -1
         }
         this.velocity += INCREMENTAL_VELOCITY
+
+        if (isCollision(rect, mushroom.rect())) {
+            this.velocity *= 1.1
+            mushroom.reset()
+        }
+        if (isCollision(rect, mirror.rect())) {
+            this.direction.x *= -1
+            mirror.reset()
+        }
     }
 }
 
