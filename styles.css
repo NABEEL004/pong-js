@@ -23,9 +23,12 @@ body {
     height: 10vh;
     justify-content: center;
     align-items: center;
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: 600;
-    color: var(--foreground-color)
+    color: var(--foreground-color);
+    font-family: monospace;
+    opacity: 0.4;
+    padding-top: 2rem;
 }
 
 .score {

@@ -45,7 +45,13 @@ export default class Ball {
         else {
             this.cpu_turn = false
         }
-        console.log(this.cpu_turn)
+        if (this.direction.y > 0) {
+            this.up_bound = false
+        }
+        else {
+            this.up_bound = true
+        }
+        // console.log(this.cpu_turn)
         this.velocity = INITIAL_VELOCITY
     }
 
@@ -56,25 +62,39 @@ export default class Ball {
 
         const rect = this.rect() 
 
-        if (rect.bottom >= window.innerHeight || rect.top <= 0) {
+        if (rect.bottom >= window.innerHeight && !this.up_bound) {
             this.direction.y *= -1
+            this.up_bound = true
+        }
+
+        if (rect.top <= 0 && this.up_bound) {
+            this.direction.y *= -1
+            this.up_bound = false
         }
 
         
         if (isCollision(playerRect, rect) && !this.cpu_turn) {
+            const prevStateY = this.direction.y
             const ballY = (rect.bottom + rect.top)/2
             const pos = (ballY - playerRect.top)/(playerRect.bottom - playerRect.top)
             const heading = (((2* Math.PI )/ 3) * pos) - (Math.PI/3)
             this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
             this.cpu_turn = !this.cpu_turn
+            if (prevStateY * this.direction.y < 0) {
+                this.up_bound = !this.up_bound
+            }
         }
         
         if (isCollision(comRect, rect) && this.cpu_turn) {
+            const prevStateY = this.direction.y
             const ballY = (rect.bottom + rect.top)/2
             const pos = (ballY - comRect.bottom)/(comRect.top - comRect.bottom)
             const heading = (((2*Math.PI)/3) * pos) + ((2 * Math.PI)/3)
             this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
             this.cpu_turn = !this.cpu_turn
+            if (prevStateY * this.direction.y < 0) {
+                this.up_bound = !this.up_bound
+            }
         }
 
         this.velocity += INCREMENTAL_VELOCITY
@@ -90,13 +110,17 @@ export default class Ball {
         }
 
         if (isCollision(rect, banana.rect())) {
-            const prevState = this.direction.x
+            const prevStateX = this.direction.x
+            const prevStateY = this.direction.y
             do {
                 const heading = randomNumberBetween(0,2 * Math.PI)
                 this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
             } while (Math.abs(this.direction.x) < 0.2 || Math.abs(this.direction.x) > 0.8)
-            if (prevState * this.direction.x < 0) {
+            if (prevStateX * this.direction.x < 0) {
                 this.cpu_turn = !this.cpu_turn
+            }
+            if (prevStateY * this.direction.y < 0) {
+                this.up_bound = !this.up_bound
             }
             banana.reset()
         }

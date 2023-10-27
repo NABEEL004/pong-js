@@ -74,6 +74,9 @@ function handleClick () {
     playerScore.textContent = 0
     modal.hide()
     ball.reset()
+    mushroom.reset()
+    banana.reset()
+    mirror.reset()
     console.log("clicked")
 }
 
