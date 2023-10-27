@@ -104,4 +104,12 @@ document.addEventListener("mousemove", e => {
     player_paddle.position = (e.y / window.innerHeight) * 100
 })
 
+document.addEventListener("touchmove", function(event) {
+    event.preventDefault();
+    var touch = event.touches[0];
+    var yPosition = touch.clientY;
+    player_paddle.position = yPosition;
+    console.log("Y-position: " + yPosition);
+});
+
 window.requestAnimationFrame(update)
