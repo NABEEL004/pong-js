@@ -25,7 +25,7 @@ export default class Item {
     }
 
     update () {
-        if (this.x < 0 && this.y < 0 && Math.random() > 0.9985) {
+        if (this.x < 0 && this.y < 0 && Math.random() > 0.999) {
             this.x = (Math.random() * 60) + 30
             this.y = (Math.random() * 60) + 30
             console.log(this.x)

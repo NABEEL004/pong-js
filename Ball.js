@@ -31,17 +31,25 @@ export default class Ball {
         this.y = 50
         this.direction = { x: 0}
         while (
-            Math.abs(this.direction.x) <= 0.2 ||
-            Math.abs(this.direction.x) >= 0.8
+            Math.abs(this.direction.x) <= 0.3 ||
+            Math.abs(this.direction.x) >= 0.7
         ) {
             const heading = randomNumberBetween(0,2 * Math.PI)
             this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
         }
+
+        if (this.direction.x > 0) {
+            this.cpu_turn = true
+        }
+        else {
+            this.cpu_turn = false
+        }
+
         this.velocity = INITIAL_VELOCITY
     }
 
     // update (delta, paddleRects, mushroomRect, mirrorRect) {
-    update (delta, paddleRects, mushroom, mirror) {
+    update (delta, playerRect, comRect, mushroom, mirror, banana) {
         this.x += this.direction.x * this.velocity * delta
         this.y += this.direction.y * this.velocity * delta
 
@@ -52,9 +60,35 @@ export default class Ball {
         }
 
         
-        if (paddleRects.some(r => isCollision(r, rect))) {
-            this.direction.x *= -1
+        if (isCollision(playerRect, rect) && !this.cpu_turn) {
+            console.log(playerRect.bottom)
+            console.log(playerRect.top)
+            const ballY = (rect.bottom + rect.top)/2
+            console.log(ballY)
+            const pos = (ballY - playerRect.top)/(playerRect.bottom - playerRect.top)
+            // console.log(pos)
+            const heading = ((Math.PI / 2) * pos) - (Math.PI/4)
+            // const heading = ((Math.pi / 2) * pos) - (Math.pi/4)
+            // console.log(heading)
+            this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
+
+            // this.direction.x *= -1
+            this.cpu_turn = !this.cpu_turn
         }
+        
+        if (isCollision(comRect, rect) && this.cpu_turn) {
+            const ballY = (rect.bottom + rect.top)/2
+            // console.log(ballY)
+            const pos = (ballY - comRect.bottom)/(comRect.top - comRect.bottom)
+            // console.log(pos)
+            const heading = ((3*(Math.PI))/4) + (pos * Math.PI/2)
+            // const heading = ((Math.pi / 2) * pos) - (Math.pi/4)
+            // console.log(heading)
+            this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
+            // this.direction.x *= -1
+            this.cpu_turn = !this.cpu_turn
+        }
+
         this.velocity += INCREMENTAL_VELOCITY
 
         if (isCollision(rect, mushroom.rect())) {
@@ -63,7 +97,18 @@ export default class Ball {
         }
         if (isCollision(rect, mirror.rect())) {
             this.direction.x *= -1
+            this.cpu_turn = !this.cpu_turn
             mirror.reset()
+        }
+
+        if (isCollision(rect, banana.rect())) {
+            const prevState = this.direction.x
+            const heading = randomNumberBetween(0,2 * Math.PI)
+            this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
+            if (prevState * this.direction.x < 0) {
+                this.cpu_turn = !this.cpu_turn
+            }
+            banana.reset()
         }
     }
 }

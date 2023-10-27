@@ -85,3 +85,13 @@ body {
     top: calc(var(--y)*1vh);
     left: calc(var(--x)*1vw);
 }
+
+#banana {
+    --x: -20;
+    --y: -20;
+    height: 48px;
+    width: 48px;
+    position: absolute;
+    top: calc(var(--y)*1vh);
+    left: calc(var(--x)*1vw);
+}
