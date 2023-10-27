@@ -1,4 +1,5 @@
 const INITIAL_VELOCITY = 0.025
+// const INITIAL_VELOCITY = 0.1
 const INCREMENTAL_VELOCITY = 0.00008
 
 export default class Ball {
@@ -44,7 +45,7 @@ export default class Ball {
         else {
             this.cpu_turn = false
         }
-
+        console.log(this.cpu_turn)
         this.velocity = INITIAL_VELOCITY
     }
 
@@ -61,31 +62,18 @@ export default class Ball {
 
         
         if (isCollision(playerRect, rect) && !this.cpu_turn) {
-            console.log(playerRect.bottom)
-            console.log(playerRect.top)
             const ballY = (rect.bottom + rect.top)/2
-            console.log(ballY)
             const pos = (ballY - playerRect.top)/(playerRect.bottom - playerRect.top)
-            // console.log(pos)
-            const heading = ((Math.PI / 2) * pos) - (Math.PI/4)
-            // const heading = ((Math.pi / 2) * pos) - (Math.pi/4)
-            // console.log(heading)
+            const heading = (((2* Math.PI )/ 3) * pos) - (Math.PI/3)
             this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
-
-            // this.direction.x *= -1
             this.cpu_turn = !this.cpu_turn
         }
         
         if (isCollision(comRect, rect) && this.cpu_turn) {
             const ballY = (rect.bottom + rect.top)/2
-            // console.log(ballY)
             const pos = (ballY - comRect.bottom)/(comRect.top - comRect.bottom)
-            // console.log(pos)
-            const heading = ((3*(Math.PI))/4) + (pos * Math.PI/2)
-            // const heading = ((Math.pi / 2) * pos) - (Math.pi/4)
-            // console.log(heading)
+            const heading = (((2*Math.PI)/3) * pos) + ((2 * Math.PI)/3)
             this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
-            // this.direction.x *= -1
             this.cpu_turn = !this.cpu_turn
         }
 
@@ -103,8 +91,10 @@ export default class Ball {
 
         if (isCollision(rect, banana.rect())) {
             const prevState = this.direction.x
-            const heading = randomNumberBetween(0,2 * Math.PI)
-            this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
+            do {
+                const heading = randomNumberBetween(0,2 * Math.PI)
+                this.direction = { x: Math.cos(heading), y: Math.sin(heading)}
+            } while (Math.abs(this.direction.x) < 0.2 || Math.abs(this.direction.x) > 0.8)
             if (prevState * this.direction.x < 0) {
                 this.cpu_turn = !this.cpu_turn
             }
