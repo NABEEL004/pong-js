@@ -54,66 +54,67 @@ body {
     padding: 2rem 4rem;
     border: solid 5px #000;
     border-radius: 10px;
-    & h2 {
-        color: white;
-        font-size: 1.8rem;
-        text-align: center;
-    }
-
-    & h4 {
-        color: white;
-        text-align: center;
-        font-size: 1.4rem;
-    }
-
-    & ul {
-        list-style-type: none;
-        list-style-position: outside;
-        display: flex;
-        flex-direction: row;
-        padding: 0;
-
-        & li {
-            padding: 2rem;
-            color: white;
-            font-size: 1.2rem;
-            background-color: darkgray;
-        }
-
-        & li:hover {
-            background-color: rgb(60,60,60);
-            cursor: pointer;
-        }
-
-        & li:active {
-            background-color: rgb(50,50,50);
-            cursor: pointer;
-        }
-
-        & li:first-child {
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
-        }
-
-        & li:last-child {
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
-        }
-    }
-
-    & #welcome-header {
-        display: block;
-    }
-    & #win-header {
-        display: none;
-    }
-    & #lose-header {
-        display: none;
-    }
-
 
 }
 
+#welcome h2 {
+    color: white;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+#welcome h4 {
+    color: white;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+ ul {
+    list-style-type: none;
+    list-style-position: outside;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+ }
+
+ul li {
+    padding: 2rem;
+    color: white;
+    font-size: 1.2rem;
+    background-color: darkgray;
+}
+
+ul li:hover {
+    background-color: rgb(60,60,60);
+    cursor: pointer;
+}
+
+ul li:active {
+    background-color: rgb(50,50,50);
+    cursor: pointer;
+}
+
+ul li:first-child {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+ul li:last-child {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+#welcome-header {
+    display: block;
+}
+
+#win-header {
+    display: none;
+}
+
+#lose-header {
+    display: none;
+}
 
 
 .paddle {
