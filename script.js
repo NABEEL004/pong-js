@@ -108,7 +108,7 @@ document.addEventListener("touchmove", function(event) {
     event.preventDefault();
     var touch = event.touches[0];
     var yPosition = touch.clientY;
-    player_paddle.position = yPosition;
+    player_paddle.position = (yPosition / window.innerHeight) * 100;
     console.log("Y-position: " + yPosition);
 });
 

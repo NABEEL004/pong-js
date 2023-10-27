@@ -1,0 +1,46 @@
+@media screen and (max-width: 800px) {
+    #welcome {
+        width: 300px;
+        height: 500px;
+    }
+
+    #welcome h2 {
+        font-size: 1.5rem;
+    }
+    
+    #welcome h4 {
+        font-size: 1.2rem;
+    }
+
+    ul {
+        flex-direction: column;
+    }
+
+    ul li {
+        padding: 1rem;
+        width: 200px;
+        height: 75px;
+        text-align: center;
+        display: flex;
+        justify-content:center ;
+        align-items:center ;
+    }
+
+    ul li:first-child {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+    
+    ul li:last-child {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+    
+
+
+
+}
