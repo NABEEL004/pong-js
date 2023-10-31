@@ -169,6 +169,7 @@ ul li:last-child {
     position: absolute;
     top: calc(var(--y)*1vh);
     left: calc(var(--x)*1vw);
+    image-rendering: pixelated;
 }
 
 #banana {
